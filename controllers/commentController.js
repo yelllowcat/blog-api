@@ -2,13 +2,21 @@ import { prisma } from "../lib/prisma.js";
 
 export async function createComment(req, res) {
   try {
-    const { content, post, author } = req.body;
+    const { content, postId, authorId } = req.body;
     console.log("test" + content + "test");
     const comment = await prisma.comment.create({
       data: {
         content,
-        postId: Number(post),
-        authorId: Number(author),
+        post: {
+          connect: {
+            id: postId,
+          },
+        },
+        author: {
+          connect: {
+            id: authorId,
+          },
+        },
       },
     });
     res.json(comment);

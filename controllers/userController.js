@@ -1,13 +1,17 @@
 import { prisma } from "../lib/prisma.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 export async function createUser(req, res) {
   try {
-    const { email, name } = req.body;
+    const { email, name, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = await prisma.user.create({
       data: {
         email,
         name,
+        password: hashedPassword,
       },
     });
     res.json(user);
@@ -20,16 +24,36 @@ export async function createUser(req, res) {
 }
 
 export async function loginUser(req, res) {
-  const { email, name } = req.body;
-  const user = { email, name };
-  jwt.sign(
-    { user },
-    process.env.SECRET_KEY,
-    { expiresIn: "1h" },
-    (err, token) => {
-      res.json({ token });
+  const { email, password } = req.body;
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: email },
+    });
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
     }
-  );
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    console.log("userid:" + user.id);
+    jwt.sign(
+      { id: user.id, email: user.email },
+      process.env.SECRET_KEY,
+      { expiresIn: "1h" },
+      (err, token) => {
+        if (err) throw err;
+        res.json({ token });
+      }
+    );
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
 }
 
 export async function getUser(req, res) {
@@ -90,12 +114,22 @@ function verifyToken(req, res, next) {
     const bearer = bearerHeader.split(" ");
     const bearerToken = bearer[1];
 
-    req.token = bearerToken;
-    next();
+    jwt.verify(bearerToken, process.env.SECRET_KEY, (err, authData) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      req.user = authData;
+      next();
+    });
   } else {
     console.log("error");
     res.sendStatus(403);
   }
+}
+
+export async function logout(req, res, next) {
+  res.status(200).json({ message: "Logout successful" });
 }
 
 export default {
@@ -106,4 +140,5 @@ export default {
   updateUser,
   verifyToken,
   loginUser,
+  logout,
 };

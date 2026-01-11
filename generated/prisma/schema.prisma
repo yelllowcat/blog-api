@@ -17,6 +17,7 @@ model User {
   id        Int       @id @default(autoincrement())
   email     String    @unique
   name      String?
+  password  String    @default("secret")
   createdAt DateTime  @default(now())
   posts     Post[]
   comments  Comment[]

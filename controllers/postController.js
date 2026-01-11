@@ -1,19 +1,29 @@
+import { json } from "express";
 import { prisma } from "../lib/prisma.js";
 
 export async function createPost(req, res) {
+  console.log(req.user);
+
   try {
-    const { title, content, author } = req.body;
+    const { title, content } = req.body;
+    const authorId = req.user.id;
     const post = await prisma.post.create({
       data: {
         title,
         content,
-        authorId: Number(author),
+        published: true,
+        author: {
+          connect: {
+            id: authorId,
+          },
+        },
       },
     });
-    res.json(post);
+
+    res.json({ test: "dadada", post });
   } catch (err) {
     if (err) {
-      return res.status(400).json({ error: err.message });
+      return res.status(400).json({ test: "dadad", error: err.message });
     }
     throw err;
   }
@@ -50,7 +60,7 @@ export async function deletePost(req, res) {
         id,
       },
     });
-    res.status(202).send();
+    res.status(202).json({ message: "deleted" });
   } catch (err) {
     if (err) {
       return res.status(404).json({ error: "Post not found" });
@@ -60,7 +70,7 @@ export async function deletePost(req, res) {
 }
 
 export async function updatePost(req, res) {
-  const { title, content } = req.body;
+  const { title, content, published } = req.body;
   const { id } = req.params;
   const updatedPost = await prisma.post.update({
     where: {
@@ -69,6 +79,7 @@ export async function updatePost(req, res) {
     data: {
       title,
       content,
+      published,
     },
   });
   res.json(updatedPost);

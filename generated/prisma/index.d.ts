@@ -1138,6 +1138,7 @@ export namespace Prisma {
     id: number | null
     email: string | null
     name: string | null
+    password: string | null
     createdAt: Date | null
   }
 
@@ -1145,6 +1146,7 @@ export namespace Prisma {
     id: number | null
     email: string | null
     name: string | null
+    password: string | null
     createdAt: Date | null
   }
 
@@ -1152,6 +1154,7 @@ export namespace Prisma {
     id: number
     email: number
     name: number
+    password: number
     createdAt: number
     _all: number
   }
@@ -1169,6 +1172,7 @@ export namespace Prisma {
     id?: true
     email?: true
     name?: true
+    password?: true
     createdAt?: true
   }
 
@@ -1176,6 +1180,7 @@ export namespace Prisma {
     id?: true
     email?: true
     name?: true
+    password?: true
     createdAt?: true
   }
 
@@ -1183,6 +1188,7 @@ export namespace Prisma {
     id?: true
     email?: true
     name?: true
+    password?: true
     createdAt?: true
     _all?: true
   }
@@ -1277,6 +1283,7 @@ export namespace Prisma {
     id: number
     email: string
     name: string | null
+    password: string
     createdAt: Date
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
@@ -1303,6 +1310,7 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     name?: boolean
+    password?: boolean
     createdAt?: boolean
     posts?: boolean | User$postsArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
@@ -1313,6 +1321,7 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     name?: boolean
+    password?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1320,6 +1329,7 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     name?: boolean
+    password?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
 
@@ -1327,10 +1337,11 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     name?: boolean
+    password?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "name" | "password" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts?: boolean | User$postsArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
@@ -1349,6 +1360,7 @@ export namespace Prisma {
       id: number
       email: string
       name: string | null
+      password: string
       createdAt: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
@@ -1778,6 +1790,7 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'Int'>
     readonly email: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
+    readonly password: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
     
@@ -4485,6 +4498,7 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     name: 'name',
+    password: 'password',
     createdAt: 'createdAt'
   };
 
@@ -4615,6 +4629,7 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     email?: StringFilter<"User"> | string
     name?: StringNullableFilter<"User"> | string | null
+    password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
     comments?: CommentListRelationFilter
@@ -4624,6 +4639,7 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrderInput | SortOrder
+    password?: SortOrder
     createdAt?: SortOrder
     posts?: PostOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
@@ -4636,6 +4652,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringNullableFilter<"User"> | string | null
+    password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
     comments?: CommentListRelationFilter
@@ -4645,6 +4662,7 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrderInput | SortOrder
+    password?: SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
@@ -4660,6 +4678,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"User"> | number
     email?: StringWithAggregatesFilter<"User"> | string
     name?: StringNullableWithAggregatesFilter<"User"> | string | null
+    password?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
@@ -4786,6 +4805,7 @@ export namespace Prisma {
   export type UserCreateInput = {
     email: string
     name?: string | null
+    password?: string
     createdAt?: Date | string
     posts?: PostCreateNestedManyWithoutAuthorInput
     comments?: CommentCreateNestedManyWithoutAuthorInput
@@ -4795,6 +4815,7 @@ export namespace Prisma {
     id?: number
     email: string
     name?: string | null
+    password?: string
     createdAt?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
@@ -4803,6 +4824,7 @@ export namespace Prisma {
   export type UserUpdateInput = {
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutAuthorNestedInput
     comments?: CommentUpdateManyWithoutAuthorNestedInput
@@ -4812,6 +4834,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
@@ -4821,12 +4844,14 @@ export namespace Prisma {
     id?: number
     email: string
     name?: string | null
+    password?: string
     createdAt?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4834,6 +4859,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5025,6 +5051,7 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrder
+    password?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5036,6 +5063,7 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrder
+    password?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5043,6 +5071,7 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     name?: SortOrder
+    password?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5655,6 +5684,7 @@ export namespace Prisma {
   export type UserCreateWithoutPostsInput = {
     email: string
     name?: string | null
+    password?: string
     createdAt?: Date | string
     comments?: CommentCreateNestedManyWithoutAuthorInput
   }
@@ -5663,6 +5693,7 @@ export namespace Prisma {
     id?: number
     email: string
     name?: string | null
+    password?: string
     createdAt?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput
   }
@@ -5709,6 +5740,7 @@ export namespace Prisma {
   export type UserUpdateWithoutPostsInput = {
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUpdateManyWithoutAuthorNestedInput
   }
@@ -5717,6 +5749,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput
   }
@@ -5760,6 +5793,7 @@ export namespace Prisma {
   export type UserCreateWithoutCommentsInput = {
     email: string
     name?: string | null
+    password?: string
     createdAt?: Date | string
     posts?: PostCreateNestedManyWithoutAuthorInput
   }
@@ -5768,6 +5802,7 @@ export namespace Prisma {
     id?: number
     email: string
     name?: string | null
+    password?: string
     createdAt?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutAuthorInput
   }
@@ -5817,6 +5852,7 @@ export namespace Prisma {
   export type UserUpdateWithoutCommentsInput = {
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutAuthorNestedInput
   }
@@ -5825,6 +5861,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     email?: StringFieldUpdateOperationsInput | string
     name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput
   }
